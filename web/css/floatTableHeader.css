@@ -1,0 +1,48 @@
+
+table.fth {
+    text-align: left;
+    position: relative;
+    border-collapse: collapse;
+
+}
+
+.fth th, .fth td {
+    padding: 0.25rem;
+}
+
+.fth tr.red th {
+   /* background: #CCC;
+    color: white;
+    */
+}
+
+.fth tr.green th {
+   /* background: #BBB;
+    color: white; */
+}
+
+.fth tr.purple th {
+    /*background: #AAA;
+    color: white;*/
+}
+
+.fth th {
+    background: white;
+    position: sticky;
+    top: 0; /* Don't forget this, required for the stickiness */
+    padding:0;
+    margin:0;
+}
+
+.fth thead th div{
+    text-align: center;
+    height: 25px;
+    margin: 0;
+    padding: 0;
+    line-height: 2;
+    border-left: 1px solid #EDEDED;
+    border-top: 1px solid #EDEDED;
+    border-right: 1px solid #868686;
+    border-bottom: 1px solid #868686;
+    background-color:#DDD;
+}

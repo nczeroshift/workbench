@@ -1,0 +1,245 @@
+
+html,
+body {
+    background-color: #CCC;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: verdana;
+    font-size: 12px;
+}
+
+/*
+* Desktop Top Task Bar
+*/
+
+.wbTaskbar {
+    position: absolute;
+    height: 30px;
+    right: 0px;
+    left: 0px;
+    top: 0px;
+    background-color: #000;
+    color: #FFF;
+}
+
+.wbTaskbar>.wbHamburger {
+    height: 28px;
+    width: 28px;
+    left: 0px;
+    top: 0px;
+    position: absolute;
+    background-image: url("/img/hamburger.svg");
+    background-size: 20px 20px;
+    background-position: 5px 5px;
+    background-repeat: no-repeat;
+   
+}
+
+.wbTaskbar>.wbHamburger:hover{
+    border:1px solid #FFF;
+    background-position: 4px 4px;
+}
+
+.wbTaskbar>.wbTitle {
+    font-weight: bold;
+    position: relative;
+    left: 30px;
+    top: 7px;
+}
+
+.wbTaskbar>.wbClock {
+    font-weight: bold;
+    position: absolute;
+    right: 8px;
+    top: 7px;
+}
+
+/**
+* Desktop
+*/
+
+.wbDesktop {
+    position: absolute;
+    top: 30px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    overflow:hidden;
+}
+
+
+/**
+* Window
+*/
+
+.wbWindow {
+    position: absolute;
+    border: 1px solid #000;
+    background-color: #DDDDDD;
+    overflow: hidden;
+    box-shadow: 5px 10px 10px rgba(0, 0, 0, 10%);
+    border-left: 1px solid #EDEDED;
+    border-top: 1px solid #EDEDED;
+    border-right: 1px solid #868686;
+    border-bottom: 1px solid #868686;
+    border-radius: 5px;
+}
+
+
+.wbWindow>.wbStatusBar {
+    position: absolute;
+    height: 30px;
+    right: 2px;
+    left: 1px;
+    top: 1px;
+    background-color: #BDBDBD;
+    background: linear-gradient(90deg, #777777 0%, #BDBDBD 100%);
+    color: #FFF;
+    margin: 0;
+    padding: 0;
+
+    user-select: none;
+
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    ;
+}
+
+.wbWindow>.wbStatusBar>label {
+    position: relative;
+    top: 8px;
+    left: 5px;
+    text-shadow: 1px 1px #000;
+}
+
+.wbWindow.active>.wbStatusBar {
+    background-color: #777777;
+    background: linear-gradient(90deg, #0B596B 0%, #A5EFBE 100%);
+}
+
+.wbWindow.active>.wbStatusBar label {
+    font-weight: bold;
+}
+
+
+.wbWindow>.wbArea {
+    position: absolute;
+    top: 30px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+}
+
+
+.wbWindow>.wbDrag {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    height: 16px;
+    width: 16px;
+    background-image: url(/img/drag_wnd.svg);
+    background-size: 16px 16px;
+    user-select: none;
+    cursor: pointer;
+    opacity: 0.5;
+
+}
+
+/**
+* File Icons
+*/
+.wbIcon {
+    margin: 10px;
+    width: 64px;
+    height: 64px;
+    position: relative;
+    background-image: url("/img/icon_file.svg");
+    background-size: 32px 32px;
+    background-repeat: no-repeat;
+    background-position: 16px 6px;
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, 0%);
+    border-radius: 5px;
+}
+
+.wbIcon label {
+    position: relative;
+    top: 40px;
+    padding: 2px;
+    border-radius: 5px;
+    text-overflow: ellipsis;
+    max-width: 60px;
+}
+
+.wbIcon:hover,
+.wbIcon.selected {
+    border: 1px dotted #000;
+    background-color: #BBB;
+}
+
+.wbIcon:hover label,
+.wbIcon.selected label {
+    font-weight: bold;
+}
+
+
+#n1 {
+    width: 300px;
+    height: 400px;
+}
+
+.wbWindow>.wbStatusBar>.wbBtn {
+    float: right;
+    position: relative;
+    border-top: 1px solid #EDEDED;
+    border-left: 1px solid #EDEDED;
+    border-right: 1px solid #868686;
+    border-bottom: 1px solid #868686;
+    background-color: #DDDDDD;
+    cursor: pointer;
+    width: 22px;
+    height: 22px;
+    margin-top: 4px;
+    margin-right: 5px;
+    color: #000;
+    text-align: center;
+    border-radius: 2px;
+}
+
+.wbWindow>.wbStatusBar>.wbBtn:active {
+    border-top: 1px solid #868686;
+    border-left: 1px solid #868686;
+    border-right: 1px solid #EDEDED;
+    border-bottom: 1px solid #EDEDED;
+    background-color: #CCCCCC;
+}
+
+.wbSkeleton {
+    display: none;
+}
+
+.wbBtnClose {
+    background-image: url(/img/icon_close.svg);
+    background-size: 20px 20px;
+}
+
+.wbBtnMin {
+    background-image: url(/img/icon_min.svg);
+    background-size: 20px 20px;
+}
+
+.wbBtnMax {
+    background-image: url(/img/icon_max.svg);
+    background-size: 20px 20px;
+}
+
+.wbWindow.maximized>.wbStatusBar>.wbBtnMax {
+    background-image: url(/img/icon_restore.svg);
+    background-size: 20px 20px;
+}
