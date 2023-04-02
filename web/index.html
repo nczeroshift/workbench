@@ -5,10 +5,12 @@
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="viewport" content="width=device-width, initial-scale=1" /> 
         <link rel="stylesheet" href="css/workbench.css">
-        <link rel="stylesheet" href="css/floatTableHeader.css">
         
         <script src="js/jquery-3.6.1.min.js"></script>
         <script src="js/workbench.js"></script>
+
+        <script src="apps/calculator/scripts.js"></script>
+        <link rel="stylesheet" href="apps/calculator/styles.css">
 
         <title>zeroshift/workbench</title>
     </head>
@@ -59,25 +61,41 @@
 
             let desktop = new wbDesktop($(".wbDesktop"));
 
-            let wnd = new wbWindow(desktop).
-            setSize(200,200).
+            /*let wnd = new wbWindow(desktop).
+            setSize(500,200).
             setPosition(100,10).
             build();
             
             wnd.moveToTop();
-            wnd.getAreaDOM().load("apps/floatTableHeader.html?t"+new Date().getTime());
+            wnd.getAreaDOM().load("apps/tableTest.html");
 
             let wnd2 = new wbWindow(desktop).
-                        setTitle("beh").
-                        setSize(200,400).
+                        setTitle("Document").
+                        setSize(400,200).
                         setCentered().
                         build();
+            wnd2.getAreaDOM().load("apps/document.html");
+*/
+            let wnd3 = new wbWindow(desktop).
+                        setTitle("Calculator").
+                        setSize(336,469).
+                        setCentered().
+                        build();
+
+
+            wnd3.getAreaDOM().load("apps/calculator/dom.html", function(){
+                let dom = wnd3.getAreaDOM().find(".appWrapper");
+                let appName = dom.data("app");
+                let fn = window[appName];
+                if(fn)
+                    fn(dom);
+            });
+
         });
-    
+
       
      
     </script>
 </head>
 
  
-

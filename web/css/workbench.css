@@ -7,6 +7,7 @@ body {
     overflow: hidden;
     font-family: verdana;
     font-size: 12px;
+    touch-action: manipulation;
 }
 
 /*
@@ -242,4 +243,58 @@ body {
 .wbWindow.maximized>.wbStatusBar>.wbBtnMax {
     background-image: url(/img/icon_restore.svg);
     background-size: 20px 20px;
+}
+
+/**
+* Workbench Table
+*/
+
+.wbTableWrapper{
+    border:1px solid #DDD;
+    padding:0;
+    margin:0;
+    position:absolute;
+    overflow: auto;
+    left:2px;
+    top:3px;
+    right:3px;
+    bottom:3px;
+    background-color:#FFF;
+}
+
+table.wbTable {
+    text-align: left;
+    position: relative;
+    border-collapse: collapse;
+
+}
+
+.wbTable th {
+    position: sticky;
+    top: 0;
+    padding:0;
+    margin:0;
+}
+
+.wbTable thead th div{
+    text-align: center;
+    height: 25px;
+    margin: 0;
+    padding: 0;
+    line-height: 2;
+    border-left: 1px solid #EDEDED;
+    border-top: 1px solid #EDEDED;
+    border-right: 1px solid #868686;
+    border-bottom: 1px solid #868686;
+    background-color:#DDD;
+    text-overflow: clip;
+    overflow: hidden;
+}
+
+/**
+*
+*/
+
+.appWrapper{
+    position:absolute;left:3px;top:3px;right:2px;bottom:2px;
 }
