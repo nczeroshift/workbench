@@ -1,0 +1,52 @@
+{
+  "folders": {
+    "Utilities": {
+      "icon": "img/folder/utilities.svg",
+      "files": {
+        "Calculator": {
+          "type": "app",
+          "appName": "calculator",
+          "icon": "icon.svg"
+        },
+        "Document Viewer": {
+          "icon": "apps/document/icon.svg",
+          "type": "app"
+        },
+        "Units": {
+          "type": "app"
+        }
+      },
+      "folders": {
+        "Folder 1": {
+
+        },"Folder 2": {
+
+        }
+      }
+    },
+    "Electronics": {
+      "icon": "img/folder/electronics.svg",
+      "files": {
+        "Voltage Divider": {
+          "type": "app",
+          "appName": "voltage_div"
+        },
+        "Ohm Law": {
+          "type": "app"
+        },
+        "LM317 Calculator": {
+          "type": "app"
+        },
+        "Parts DB": {
+          "type": "app"
+        }
+      }
+    }
+  },
+  "files": {
+    "about": {
+      "type": "doc",
+      "path": "/public/about.html"
+    }
+  }
+}

@@ -1,101 +1,230 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" /> 
-        <link rel="stylesheet" href="css/workbench.css">
-        
-        <script src="js/jquery-3.6.1.min.js"></script>
-        <script src="js/workbench.js"></script>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="css/workbench.css">
 
-        <script src="apps/calculator/scripts.js"></script>
-        <link rel="stylesheet" href="apps/calculator/styles.css">
+    <script src="js/libs/jquery-3.6.1.min.js"></script>
+    <script src="js/workbench.build.js"></script>
 
-        <title>zeroshift/workbench</title>
-    </head>
-    <body>
-        <div class="wbTaskbar">
-            <div class="wbHamburger"></div>
-            <div class="wbTitle">
-                Workbench
-            </div>
-            <div class="wbClock">
-                00:00
-            </div>
+    <script src="apps/timeline/timeline.js"></script>
+
+    <link rel="stylesheet" href="apps/timeline/timeline.css">
+
+    <title>zeroshift/workbench</title>
+</head>
+<body>
+<div class="wbTaskbar">
+    <div class="wbHamburger"></div>
+    <div class="wbTitle">
+        Workbench
+    </div>
+    <div class="wbAppsBar">
+    </div>
+    <div class="wbClock">
+        00:00
+    </div>
+</div>
+
+<div class="wbDesktop" style="background-color: rgba(0, 152, 177, 0.13);">
+
+</div>
+
+<div class="wbSkeleton">
+    <div class="wbWindow">
+        <div class="wbStatusBar">
+            <div class="wbAppIcon"></div>
+            <label></label>
+            <button class="wbBtn wbBtnClose"></button>
+            <button class="wbBtn wbBtnMax"></button>
+            <button class="wbBtn wbBtnMin"></button>
         </div>
-        <div class="wbDesktop">
-            <div class="wbIcon" data-path="software">
-                <label>Test</label>
-            </div>
+        <div class="wbArea">
         </div>
-        <div class="wbSkeleton">
+        <div class="wbDrag"></div>
+    </div>
+</div>
+</body>
+<script>
 
-            <div class="wbWindow">
-                <div class="wbStatusBar">
-                    <label></label>
-                    <button class="wbBtn wbBtnClose"></button>
-                    <button class="wbBtn wbBtnMax"></button>
-                    <button class="wbBtn wbBtnMin"></button>
-                </div>
-                <div class="wbArea">
-                </div>
-                <div class="wbDrag"></div>
-            </div>
-        </div>
-    </body>
+    String.prototype.endsWith = function(suffix) {
+        return this.indexOf(suffix, this.length - suffix.length) !== -1;
+    };
 
-    <script>
-    
-        $(function(){
-            $(".wbIcon").click(function(){
-                alert($(this).data("path"));
+    function loadScript(path, done){
+        var script = document.createElement('script');
+        script.onload = done;
+        script.src = path;
+        document.head.appendChild(script);
+    }
+
+    var virtual_fs = {"folders":{},"files":{}};
+
+
+    function fs_GetLastFolderName(path){
+        var paths = path.substring(1,path.length).split("/");
+        if(paths.length === 1 && paths[0].trim().length === 0)
+            return "/";
+        else
+            return paths[paths.length-1];
+    }
+
+    function joinPath(p,n){
+        if(!p.endsWith("/"))
+            return p + "/" + n;
+        return p + n;
+    }
+
+    function resolveFSFromPath(fs, path){
+        var paths = path.substring(1,path.length).split("/");
+
+        var obj = fs;
+
+        if(paths.length === 1 && paths[0].trim().length === 0){
+            obj = fs;
+        }else {
+            for (var i = 0; i < paths.length; i++) {
+                var fName = paths[i];
+                if(!obj["folders"])
+                    break;
+
+                var fObj = obj["folders"][fName];
+                if (fObj || fName.trim().length == 0) {
+                    obj = fObj;
+                } else {
+                    if(obj["files"]) {
+                        var fObj = obj["files"][fName];
+                        obj = fObj;
+                    }
+                    else
+                        throw new Error("Folder \"" + fName + "\" not found");
+                }
+            }
+        }
+
+        return obj;
+    }
+
+
+    function execApp(desktop, appName, path){
+        if (window["wbApps"][appName])
+            window["wbApps"][appName](desktop, path);
+        else {
+            var script = "apps/" + appName + "/app.js";
+            loadScript(script, function () {
+                window["wbApps"][appName](desktop, path);
             });
+        }
+    }
 
-            setInterval(function(){
-                let d = new Date();
-                let h = d.getHours();
-                let m = d.getMinutes();
-                $(".wbTaskbar>.wbClock").text( ((h<10?"0":"") +h) +":"+((m<10?"0":"") +m));
-            },1000);
+    var instApp = function (desktop, app, path) {
+        return function () {
+            execApp(desktop, app, path);
+        }
+    };
 
-            let desktop = new wbDesktop($(".wbDesktop"));
+    function initFileIcons(desktop, container, fs, path, onFolderClick) {
+        var obj = resolveFSFromPath(fs,path);
+        var folders = obj["folders"];
+        var files = obj["files"];
 
-            /*let wnd = new wbWindow(desktop).
-            setSize(500,200).
-            setPosition(100,10).
-            build();
-            
-            wnd.moveToTop();
-            wnd.getAreaDOM().load("apps/tableTest.html");
+        if(folders) {
+            var foldersNames = Object.keys(folders);
+            for (var i = 0; i < foldersNames.length; i++) {
+                var name = foldersNames[i];
 
-            let wnd2 = new wbWindow(desktop).
-                        setTitle("Document").
-                        setSize(400,200).
-                        setCentered().
-                        build();
-            wnd2.getAreaDOM().load("apps/document.html");
-*/
-            let wnd3 = new wbWindow(desktop).
-                        setTitle("Calculator").
-                        setSize(336,469).
-                        setCentered().
-                        build();
+                var iconDiv = $("<div/>").attr("class", "wbIcon folder");
+                iconDiv.append($("<label/>").text(name));
+
+                var folderPath = joinPath(path, name);
+
+                if (onFolderClick)
+                    iconDiv.click(onFolderClick(folderPath));
 
 
-            wnd3.getAreaDOM().load("apps/calculator/dom.html", function(){
-                let dom = wnd3.getAreaDOM().find(".appWrapper");
-                let appName = dom.data("app");
-                let fn = window[appName];
-                if(fn)
-                    fn(dom);
-            });
+                container.append(iconDiv);
+            }
+        }
+
+        if(files) {
+            var fileNames = Object.keys(files);
+            for (var j = 0; j < fileNames.length; j++) {
+                var name = fileNames[j];
+                var file = files[name];
+                var type = file.type;
+
+                var vpath = joinPath(path, name);
+
+                var iconDiv = $("<div/>");
+                iconDiv.append($("<label/>").text(name));
+                iconDiv.attr("class", "wbIcon file");
+
+                if(type === "doc") {
+                    iconDiv.addClass("doc");
+                    iconDiv.click(instApp(desktop, "document",vpath));
+                }
+                else if(type === "app"){
+                    iconDiv.addClass("app");
+                    var aName = file["appName"];
+                    iconDiv.click(instApp(desktop, aName));
+                }
+
+                container.append(iconDiv);
+            }
+        }
+    }
+
+
+    $(function(){
+        var desktop = new wb.Desktop($(".wbDesktop"));
+
+        $(".wbIcon").click(function () {
+
+            if ($(this).hasClass("app")) {
+                var appName = $(this).data("app");
+
+                if (window[appName])
+                    window[appName](desktop);
+                else {
+                    loadScript($(this).data("script"), function () {
+                        window[appName](desktop);
+                    });
+                }
+            }
 
         });
 
-      
-     
-    </script>
-</head>
+        setInterval(function(){
+            var d = new Date();
+            var h = d.getHours();
+            var m = d.getMinutes();
+            $(".wbTaskbar>.wbClock").text( ((h<10?"0":"") +h) +":"+((m<10?"0":"") +m));
+        },1000);
 
- 
+        $.ajax({
+            url:"static_fs.json",
+            success: function (data) {
+                virtual_fs = data;
+                try {
+                    initFileIcons(desktop, $(".wbDesktop"), virtual_fs, "/", function (next) {
+                        return instApp(desktop, "explorer", next);
+                    });
+                }catch (e){
+                    window.alert(e);
+                }
+            },
+            error: function (x, y, z) {
+                console.error(x);
+            }
+        });
+
+
+
+    });
+
+</script>
+</html>
+
+

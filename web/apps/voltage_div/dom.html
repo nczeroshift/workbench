@@ -1,0 +1,73 @@
+<link rel="stylesheet" href="/apps/voltage_div/styles.css">
+<div class="appWrapper appVoltage">
+  <div style="width:100%;background-color:#C0C0C0;height:100px;text-align: center;">
+    <img src="/apps/voltage_div/res_div_circuit.png" style="height:100%">
+  </div>
+  <div style="margin-left:10px;margin-right:10px;">
+    <p>Compute electrical parameters of a voltage divider circuit. Use the radio box to pick the quantity to compute.</p>
+    <table style="width:100%;">
+      <thead>
+        <th>Parameter</th>
+        <th>?</th>
+        <th>Value</th>
+        <th>Multiplier</th>
+      </thead>
+      <tboby>
+        <tr>
+          <td>R1</td>
+          <td><input type="radio" name="type" value="r1" checked="checked"/></td>
+          <td><input type="number" value="100" name="r1Val"/></td>
+          <td>
+            <select name="r1Mult">
+              <option value="1">&Omega;</option>
+              <option value="1000" selected="selected">k&Omega;</option>
+              <option value="1e6">M&Omega;</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>R2</td>
+          <td><input type="radio" name="type" value="r2"/></td>
+          <td><input type="number" value="100" name="r2Val"/></td>
+          <td>
+            <select name="r2Mult">
+              <option value="1">&Omega;</option>
+              <option value="1000" selected="selected">k&Omega;</option>
+              <option value="1e6">M&Omega;</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>Input Voltage</td>
+          <td><input type="radio" name="type" value="v1"/></td>
+          <td><input type="number" value="5" name="v1Val"/></td>
+          <td>
+            <select name="v1Mult">
+              <option value="0.001">mV</option>
+              <option value="1" selected="selected">V</option>
+              <option value="1000">kV</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>Output Voltage</td>
+          <td><input type="radio" name="type" value="v2"/></td>
+          <td><input type="number" value="2.5" name="v2Val"/></td>
+          <td>
+            <select name="v2Mult">
+              <option value="0.001">mV</option>
+              <option value="1" selected="selected">V</option>
+              <option value="1000">kV</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>Current</td>
+          <td></td>
+          <td><input type="number" disabled value="5"/></td>
+          <td></td>
+        </tr>
+      </tboby>
+    </table>
+  </div>
+</div>

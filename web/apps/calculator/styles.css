@@ -4,9 +4,9 @@
 }
 
 .appCalculator .lcd_display{
-    font-family: SubwayTicker;
+    font-family: monospace;
     margin:5px;
-    font-size:16px;
+    font-size:20px;
     background-color:#BBB;
     position:absolute;
     left:0;
@@ -60,16 +60,10 @@
     background-color:#DA1;
 }
 
-@font-face {
-    font-family: SubwayTicker;
-    src: url("/fonts/subway_ticker.ttf");
-}
-
-
 .appCalculator .lcd_display p.input{
     margin: 0;
     padding: 4px;
-    height:14px;
+    height:20px;
 }
 
 .appCalculator .lcd_display p.input.current:after{

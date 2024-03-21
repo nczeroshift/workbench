@@ -3,6 +3,18 @@
 <svg width="100%" height="100%" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;">
     <g id="layer1">
         <path id="path7224" d="M7.5,4.498L7.5,27.498L24.5,27.5L24.5,9.5L19.5,4.5L7.5,4.498Z" style="fill:white;fill-rule:nonzero;stroke:black;stroke-width:1px;"/>
+        <g transform="matrix(1.01236,0,0,1.08232,-0.51711,0.341465)">
+            <rect x="10.389" y="10.772" width="11.854" height="1.848" style="fill:rgb(170,170,170);"/>
+        </g>
+        <g transform="matrix(1.01236,0,0,1.08232,-0.51711,3.34146)">
+            <rect x="10.389" y="10.772" width="11.854" height="1.848" style="fill:rgb(170,170,170);"/>
+        </g>
+        <g transform="matrix(1.01236,0,0,1.08232,-0.51711,6.34146)">
+            <rect x="10.389" y="10.772" width="11.854" height="1.848" style="fill:rgb(170,170,170);"/>
+        </g>
+        <g transform="matrix(0.506179,0,0,1.08232,4.74144,9.34146)">
+            <rect x="10.389" y="10.772" width="11.854" height="1.848" style="fill:rgb(170,170,170);"/>
+        </g>
         <path d="M19.5,4.507L19.5,9.5L24.5,9.5" style="fill:none;stroke:black;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;"/>
     </g>
 </svg>

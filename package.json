@@ -3,8 +3,9 @@
 	"version": "0.0.1",
 	"description": "Aesthetics Workbench",
 	"scripts": {
-		"serve": "cd web & python -m http.server 8080",
-		"serve2": "esbuild web/js/workbench.js --target=es2020,chrome58,edge16,firefox57,node12,safari11 --serve=8080 --servedir=web --format=iife --outfile=web/js/workbench.build.js"
+		"serve": "esbuild --servedir=web --serve=8080",
+		"build": "esbuild web/js/workbench/index.js --target=es2020,chrome58,edge16,firefox57,node12,safari11 --bundle --minify --format=iife --outfile=web/js/workbench.build.js",
+		"build_serve": "esbuild web/js/workbench/index.js --target=safari9  --serve=8080 --servedir=web --minify --bundle --format=iife --global-name=wb --outfile=web/js/workbench.build.js"
 	},
 	"author": "nczeroshift",
 	"license": "MIT",
